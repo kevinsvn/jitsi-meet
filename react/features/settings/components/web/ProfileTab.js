@@ -12,7 +12,6 @@ import {
 import { AbstractDialogTab } from '../../../base/dialog';
 import type { Props as AbstractDialogTabProps } from '../../../base/dialog';
 import { translate } from '../../../base/i18n';
-import { openLogoutDialog } from '../../actions';
 
 declare var APP: Object;
 
@@ -139,14 +138,23 @@ class ProfileTab extends AbstractDialogTab<Props> {
         if (this.props.authLogin) {
             sendAnalytics(createProfilePanelButtonEvent('logout.button'));
 
-            APP.store.dispatch(openLogoutDialog(
-                () => APP.UI.emitEvent(UIEvents.LOGOUT)
-            ));
+            APP.UI.messageHandler.openTwoButtonDialog({
+                leftButtonKey: 'dialog.Yes',
+                msgKey: 'dialog.logoutQuestion',
+                submitFunction(evt, yes) {
+                    if (yes) {
+                        APP.UI.emitEvent(UIEvents.LOGOUT);
+                    }
+                },
+                titleKey: 'dialog.logoutTitle'
+            });
         } else {
             sendAnalytics(createProfilePanelButtonEvent('login.button'));
 
             APP.UI.emitEvent(UIEvents.AUTH_CLICKED);
         }
+
+        this.props.closeDialog();
     }
 
     /**

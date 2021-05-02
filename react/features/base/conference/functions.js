@@ -21,22 +21,6 @@ import {
 import logger from './logger';
 
 /**
- * Returns root conference state.
- *
- * @param {Object} state - Global state.
- * @returns {Object} Conference state.
- */
-export const getConferenceState = (state: Object) => state['features/base/conference'];
-
-/**
- * Is the conference joined or not.
- *
- * @param {Object} state - Global state.
- * @returns {boolean}
- */
-export const getIsConferenceJoined = (state: Object) => Boolean(getConferenceState(state).conference);
-
-/**
  * Attach a set of local tracks to a conference.
  *
  * @param {JitsiConference} conference - Conference instance.
@@ -139,7 +123,7 @@ export function commonUserLeftHandling(
 export function forEachConference(
         stateful: Function | Object,
         predicate: (Object, URL) => boolean) {
-    const state = getConferenceState(toState(stateful));
+    const state = toState(stateful)['features/base/conference'];
 
     for (const v of Object.values(state)) {
         // Does the value of the base/conference's property look like a
@@ -173,7 +157,7 @@ export function getConferenceName(stateful: Function | Object): string {
     const state = toState(stateful);
     const { callee } = state['features/base/jwt'];
     const { callDisplayName } = state['features/base/config'];
-    const { pendingSubjectChange, room, subject } = getConferenceState(state);
+    const { pendingSubjectChange, room, subject } = state['features/base/conference'];
 
     return pendingSubjectChange
         || subject
@@ -190,7 +174,7 @@ export function getConferenceName(stateful: Function | Object): string {
  * @returns {string} - The name of the conference formatted for the title.
  */
 export function getConferenceNameForTitle(stateful: Function | Object) {
-    return safeStartCase(safeDecodeURIComponent(getConferenceState(toState(stateful)).room));
+    return safeStartCase(safeDecodeURIComponent(toState(stateful)['features/base/conference'].room));
 }
 
 /**
@@ -202,7 +186,7 @@ export function getConferenceNameForTitle(stateful: Function | Object) {
 */
 export function getConferenceTimestamp(stateful: Function | Object): number {
     const state = toState(stateful);
-    const { conferenceTimestamp } = getConferenceState(state);
+    const { conferenceTimestamp } = state['features/base/conference'];
 
     return conferenceTimestamp;
 }
@@ -219,7 +203,7 @@ export function getConferenceTimestamp(stateful: Function | Object): number {
  */
 export function getCurrentConference(stateful: Function | Object) {
     const { conference, joining, leaving, membersOnly, passwordRequired }
-        = getConferenceState(toState(stateful));
+        = toState(stateful)['features/base/conference'];
 
     // There is a precedence
     if (conference) {
@@ -236,7 +220,7 @@ export function getCurrentConference(stateful: Function | Object) {
  * @returns {string}
  */
 export function getRoomName(state: Object): string {
-    return getConferenceState(state).room;
+    return state['features/base/conference'].room;
 }
 
 /**

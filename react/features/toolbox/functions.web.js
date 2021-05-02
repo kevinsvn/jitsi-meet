@@ -25,23 +25,23 @@ export function getToolbarAdditionalButtons(width: number, isMobile: boolean): S
     switch (true) {
     case width >= WIDTH.FIT_9_ICONS: {
         buttons = isMobile
-            ? [ 'chat', 'raisehand', 'tileview', 'participants-pane', 'overflow' ]
-            : [ 'desktop', 'chat', 'raisehand', 'tileview', 'participants-pane', 'overflow' ];
+            ? [ 'chat', 'raisehand', 'tileview', 'invite', 'overflow' ]
+            : [ 'desktop', 'chat', 'raisehand', 'tileview', 'invite', 'overflow' ];
         break;
     }
 
     case width >= WIDTH.FIT_8_ICONS: {
-        buttons = [ 'desktop', 'chat', 'raisehand', 'participants-pane', 'overflow' ];
+        buttons = [ 'desktop', 'chat', 'raisehand', 'invite', 'overflow' ];
         break;
     }
 
     case width >= WIDTH.FIT_7_ICONS: {
-        buttons = [ 'desktop', 'chat', 'participants-pane', 'overflow' ];
+        buttons = [ 'desktop', 'chat', 'invite', 'overflow' ];
         break;
     }
 
     case width >= WIDTH.FIT_6_ICONS: {
-        buttons = [ 'chat', 'participants-pane', 'overflow' ];
+        buttons = [ 'chat', 'invite', 'overflow' ];
         break;
     }
 

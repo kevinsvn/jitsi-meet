@@ -20,10 +20,8 @@ public class BroadcastIntentHelper {
         return intent;
     }
 
-    public static Intent buildToggleScreenShareIntent(boolean enabled) {
-        Intent intent = new Intent(BroadcastAction.Type.TOGGLE_SCREEN_SHARE.getAction());
-        intent.putExtra("enabled", enabled);
-        return intent;
+    public static Intent buildToggleScreenShareIntent() {
+        return new Intent(BroadcastAction.Type.TOGGLE_SCREEN_SHARE.getAction());
     }
 
     public static Intent buildOpenChatIntent(String participantId) {

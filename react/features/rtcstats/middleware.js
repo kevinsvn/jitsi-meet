@@ -1,7 +1,7 @@
 // @flow
 
 import { getAmplitudeIdentity } from '../analytics';
-import { CONFERENCE_UNIQUE_ID_SET, getRoomName } from '../base/conference';
+import { CONFERENCE_UNIQUE_ID_SET } from '../base/conference';
 import { LIB_WILL_INIT } from '../base/lib-jitsi-meet';
 import { getLocalParticipant } from '../base/participants';
 import { MiddlewareRegistry } from '../base/redux';
@@ -22,7 +22,6 @@ MiddlewareRegistry.register(store => next => action => {
     const config = state['features/base/config'];
     const { analytics } = config;
 
-
     switch (action.type) {
     case LIB_WILL_INIT: {
         if (isRtcstatsEnabled(state)) {
@@ -31,17 +30,14 @@ MiddlewareRegistry.register(store => next => action => {
             // init, we need to add these proxies before it initializes, otherwise lib-jitsi-meet will use the
             // original non proxy versions of these functions.
             try {
-                // Default poll interval is 1000ms and standard stats will be used, if not provided in the config.
+                // Default poll interval is 1000ms if not provided in the config.
                 const pollInterval = analytics.rtcstatsPollInterval || 1000;
-                const useLegacy = analytics.rtcstatsUseLegacy || false;
-
 
                 // Initialize but don't connect to the rtcstats server wss, as it will start sending data for all
                 // media calls made even before the conference started.
                 RTCStats.init({
-                    endpoint: analytics.rtcstatsEndpoint,
-                    useLegacy,
-                    pollInterval
+                    rtcstatsEndpoint: analytics.rtcstatsEndpoint,
+                    rtcstatsPollInterval: pollInterval
                 });
             } catch (error) {
                 logger.error('Failed to initialize RTCStats: ', error);
@@ -72,7 +68,6 @@ MiddlewareRegistry.register(store => next => action => {
                 RTCStats.sendIdentityData({
                     ...getAmplitudeIdentity(),
                     ...config,
-                    confName: getRoomName(state),
                     displayName: localParticipant?.name,
                     meetingUniqueId
                 });

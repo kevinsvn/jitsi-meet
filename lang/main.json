@@ -259,7 +259,6 @@
         "muteParticipantsVideoTitle": "Disable camera of this participant?",
         "muteParticipantsVideoBody": "You won't be able to turn the camera back on, but they can turn it back on at any time.",
         "Ok": "OK",
-        "password": "Password",
         "passwordLabel": "The meeting has been locked by a participant. Please enter the $t(lockRoomPassword) to join.",
         "passwordNotSupported": "Setting a meeting $t(lockRoomPassword) is not supported.",
         "passwordNotSupportedTitle": "$t(lockRoomPasswordUppercase) not supported",
@@ -339,11 +338,11 @@
         "title": "Embed this meeting"
     },
     "virtualBackground": {
-        "title": "Virtual backgrounds",
+        "title": "Backgrounds",
         "blur": "Blur",
         "slightBlur": "Slight Blur",
         "removeBackground": "Remove background",
-        "addBackground": "Add background",
+        "uploadImage": "Upload image",
         "pleaseWait": "Please wait...",
         "none": "None"
     },
@@ -419,7 +418,6 @@
         "showSpeakerStats": "Show speaker stats",
         "toggleChat": "Open or close the chat",
         "toggleFilmstrip": "Show or hide video thumbnails",
-        "toggleParticipantsPane": "Show or hide the participants pane",
         "toggleScreensharing": "Switch between camera and screen sharing",
         "toggleShortcuts": "Show or hide keyboard shortcuts",
         "videoMute": "Start or stop your camera"
@@ -514,7 +512,7 @@
         "passwordSetRemotely": "$t(lockRoomPasswordUppercase) set by another participant",
         "raisedHand": "{{name}} would like to speak.",
         "screenShareNoAudio": " Share audio box was not checked in the window selection screen.",
-        "screenShareNoAudioTitle": "Share audio was not checked",
+        "screenShareNoAudioTitle": "Share audio was not chcked",
         "somebody": "Somebody",
         "startSilentTitle": "You joined with no audio output!",
         "startSilentDescription": "Rejoin the meeting to enable audio",
@@ -528,16 +526,6 @@
         "oldElectronClientDescription1": "You appear to be using an old version of the Jitsi Meet client which has known security vulnerabilities. Please make sure you update to our ",
         "oldElectronClientDescription2": "latest build",
         "oldElectronClientDescription3": " now!"
-    },
-    "participantsPane": {
-        "headings": {
-            "lobby": "Lobby ({{count}})",
-            "participantsList": "Meeting participants ({{count}})"
-        },
-        "actions": {
-            "muteAll": "Mute all",
-            "stopVideo": "Stop video"
-        }
     },
     "passwordSetRemotely": "Set by another participant",
     "passwordDigitsOnly": "Up to {{number}} digits",
@@ -757,7 +745,6 @@
             "muteEveryoneElse": "Mute everyone else",
             "muteEveryonesVideo": "Disable everyone's camera",
             "muteEveryoneElsesVideo": "Disable everyone else's camera",
-            "participants": "Participants",
             "pip": "Toggle Picture-in-Picture mode",
             "privateMessage": "Send private message",
             "profile": "Edit your profile",
@@ -820,7 +807,6 @@
         "noisyAudioInputTitle": "Your microphone appears to be noisy!",
         "noisyAudioInputDesc": "It sounds like your microphone is making noise, please consider muting or changing the device.",
         "openChat": "Open chat",
-        "participants": "Participants",
         "pip": "Enter Picture-in-Picture mode",
         "privateMessage": "Send private message",
         "profile": "Edit your profile",
@@ -956,7 +942,6 @@
         "header": "Help center"
     },
     "lobby": {
-        "admit": "Admit",
         "knockingParticipantList": "Knocking participant list",
         "allow": "Allow",
         "backToKnockModeButton": "No password, ask to join instead",

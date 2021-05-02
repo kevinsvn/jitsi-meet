@@ -3,7 +3,6 @@
 import { StateListenerRegistry, equals } from '../base/redux';
 import { clientResized } from '../base/responsive-ui';
 import { setFilmstripVisible } from '../filmstrip/actions';
-import { getParticipantsPaneOpen } from '../participants-pane/functions';
 import { setOverflowDrawer } from '../toolbox/actions.web';
 import { getCurrentLayout, getTileViewGridDimensions, shouldDisplayTileView, LAYOUTS } from '../video-layout';
 
@@ -92,19 +91,6 @@ StateListenerRegistry.register(
 
         store.dispatch(clientResized(innerWidth, innerHeight));
     });
-
-/**
- * Listens for changes in the participant pane state to calculate the
- * dimensions of the tile view grid and the tiles.
- */
-StateListenerRegistry.register(
-    /* selector */ getParticipantsPaneOpen,
-    /* listener */ (isOpen, store) => {
-        const { innerWidth, innerHeight } = window;
-
-        store.dispatch(clientResized(innerWidth, innerHeight));
-    });
-
 
 /**
  * Listens for changes in the client width to determine whether the overflow menu(s) should be displayed as drawers.

@@ -52,8 +52,8 @@ export default class Toolbar extends Component<Props> {
                 onMouseOut = { onMouseOut }
                 onMouseOver = { onMouseOver }>
                 <AudioMuteButton />
-                <VideoMuteButton />
                 <HangupButton customClass = 'hangup-button' />
+                <VideoMuteButton />
             </div>
         );
     }

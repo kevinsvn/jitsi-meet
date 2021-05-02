@@ -312,11 +312,6 @@ class ConferenceConnector {
                 room.join();
             }, 5000);
 
-            const { password }
-                = APP.store.getState()['features/base/conference'];
-
-            AuthHandler.requireAuth(room, password);
-
             break;
         }
 
@@ -1771,12 +1766,16 @@ export default {
             const isPortrait = height >= width;
             const DESKTOP_STREAM_CAP = 720;
 
+            // Config.js setting for resizing high resolution desktop tracks to 720p when presenter is turned on.
+            const resizeEnabled = config.videoQuality && config.videoQuality.resizeDesktopForPresenter;
             const highResolutionTrack
                 = (isPortrait && width > DESKTOP_STREAM_CAP) || (!isPortrait && height > DESKTOP_STREAM_CAP);
 
             // Resizing the desktop track for presenter is causing blurriness of the desktop share on chrome.
             // Disable resizing by default, enable it only when config.js setting is enabled.
-            const resizeDesktopStream = highResolutionTrack && config.videoQuality?.resizeDesktopForPresenter;
+            // Firefox doesn't return width and height for desktop tracks. Therefore, track needs to be resized
+            // for creating the canvas for presenter.
+            const resizeDesktopStream = browser.isFirefox() || (highResolutionTrack && resizeEnabled);
 
             if (resizeDesktopStream) {
                 let desktopResizeConstraints = {};
@@ -2279,7 +2278,7 @@ export default {
         });
 
         APP.UI.addListener(UIEvents.AUTH_CLICKED, () => {
-            AuthHandler.authenticate(room);
+            AuthHandler.authenticateExternal(room);
         });
 
         APP.UI.addListener(

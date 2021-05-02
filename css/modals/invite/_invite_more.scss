@@ -97,18 +97,18 @@
                 border-top: none;
                 border-radius: 0 0 3px 3px;
 
-                .copy-invite-icon, .provider-icon {
-                    align-items: center;
-                    cursor: pointer;
+                & > * {
                     display: flex;
+                    justify-content: center;
+                    align-items: center;
                     height: 40px;
-                    place-content: center;
                     width: 40px;
+                    border-radius: 4px;
+                    cursor: pointer;
                 }
 
                 &:hover > div:hover {
                     background-color: rgba(255, 255, 255, 0.2);
-                    border-radius: 4px;
                 }
 
                 & > :not(:last-child) {

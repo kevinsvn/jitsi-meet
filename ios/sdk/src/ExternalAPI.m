@@ -164,11 +164,8 @@ RCT_EXPORT_METHOD(sendEvent:(NSString *)name
     [self sendEventWithName:sendEndpointTextMessageAction body:data];
 }
 
-- (void)toggleScreenShare:(BOOL)enabled {
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
-    data[@"enabled"] = [NSNumber numberWithBool:enabled];
-    
-    [self sendEventWithName:toggleScreenShareAction body:data];
+- (void)toggleScreenShare {
+    [self sendEventWithName:toggleScreenShareAction body:nil];
 }
 
 - (void)retrieveParticipantsInfo:(void (^)(NSArray*))completionHandler {

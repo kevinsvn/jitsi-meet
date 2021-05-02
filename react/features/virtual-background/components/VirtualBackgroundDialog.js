@@ -7,8 +7,9 @@ import uuid from 'uuid';
 
 import { Dialog } from '../../base/dialog';
 import { translate } from '../../base/i18n';
-import { Icon, IconCloseSmall, IconPlusCircle } from '../../base/icons';
+import { Icon, IconBlurBackground, IconCancelSelection } from '../../base/icons';
 import { connect } from '../../base/redux';
+import { Tooltip } from '../../base/tooltip';
 import { toggleBackgroundEffect } from '../actions';
 import { resizeImage, toDataURL } from '../functions';
 import logger from '../logger';
@@ -33,18 +34,6 @@ const images = [
     {
         id: '4',
         src: 'images/virtual-background/background-4.jpg'
-    },
-    {
-        id: '5',
-        src: 'images/virtual-background/background-5.jpg'
-    },
-    {
-        id: '6',
-        src: 'images/virtual-background/background-6.jpg'
-    },
-    {
-        id: '7',
-        src: 'images/virtual-background/background-7.jpg'
     }
 ];
 type Props = {
@@ -181,9 +170,9 @@ function VirtualBackground({ _selectedThumbnail, dispatch, t }: Props) {
     return (
         <Dialog
             hideCancelButton = { true }
-            submitDisabled = { true }
+            submitDisabled = { false }
             titleKey = { 'virtualBackground.title' }
-            width = '640px'>
+            width = '450px'>
             {loading ? (
                 <div className = 'virtual-background-loading'>
                     <span className = 'loading-content-text'>{t('virtualBackground.pleaseWait')}</span>
@@ -193,38 +182,35 @@ function VirtualBackground({ _selectedThumbnail, dispatch, t }: Props) {
                 </div>
             ) : (
                 <div>
-                    <label
-                        className = 'file-upload-label'
-                        htmlFor = 'file-upload'>
-                        <Icon
-                            className = { 'add-background' }
-                            size = { 20 }
-                            src = { IconPlusCircle } />
-                        {t('virtualBackground.addBackground')}
-                    </label>
-                    <input
-                        accept = 'image/*'
-                        className = 'file-upload-btn'
-                        id = 'file-upload'
-                        onChange = { e => uploadImage(e.target.files) }
-                        type = 'file' />
                     <div className = 'virtual-background-dialog'>
-                        <div
-                            className = { _selectedThumbnail === 'none' ? 'none-selected' : 'virtual-background-none' }
-                            onClick = { removeBackground }>
-                            {t('virtualBackground.none')}
-                        </div>
-                        <div
-                            className = { _selectedThumbnail === 'slight-blur'
-                                ? 'slight-blur-selected' : 'slight-blur' }
-                            onClick = { () => enableBlur(8, 'slight-blur') }>
-                            {t('virtualBackground.slightBlur')}
-                        </div>
-                        <div
-                            className = { _selectedThumbnail === 'blur' ? 'blur-selected' : 'blur' }
-                            onClick = { () => enableBlur(25, 'blur') }>
-                            {t('virtualBackground.blur')}
-                        </div>
+                        <Tooltip
+                            content = { t('virtualBackground.removeBackground') }
+                            position = { 'top' }>
+                            <div
+                                className = { _selectedThumbnail === 'none'
+                                    ? 'none-selected' : 'virtual-background-none' }
+                                onClick = { removeBackground }>
+                                {t('virtualBackground.none')}
+                            </div>
+                        </Tooltip>
+                        <Tooltip
+                            content = { t('virtualBackground.slightBlur') }
+                            position = { 'top' }>
+                            <Icon
+                                className = { _selectedThumbnail === 'slight-blur' ? 'blur-selected' : '' }
+                                onClick = { () => enableBlur(8, 'slight-blur') }
+                                size = { 50 }
+                                src = { IconBlurBackground } />
+                        </Tooltip>
+                        <Tooltip
+                            content = { t('virtualBackground.blur') }
+                            position = { 'top' }>
+                            <Icon
+                                className = { _selectedThumbnail === 'blur' ? 'blur-selected' : '' }
+                                onClick = { () => enableBlur(25, 'blur') }
+                                size = { 50 }
+                                src = { IconBlurBackground } />
+                        </Tooltip>
                         {images.map((image, index) => (
                             <img
                                 className = { _selectedThumbnail === image.id ? 'thumbnail-selected' : 'thumbnail' }
@@ -233,6 +219,24 @@ function VirtualBackground({ _selectedThumbnail, dispatch, t }: Props) {
                                 onError = { event => event.target.style.display = 'none' }
                                 src = { image.src } />
                         ))}
+                        <Tooltip
+                            content = { t('virtualBackground.uploadImage') }
+                            position = { 'top' }>
+                            <label
+                                className = 'custom-file-upload'
+                                htmlFor = 'file-upload'>
+                                +
+                            </label>
+                            <input
+                                accept = 'image/*'
+                                className = 'file-upload-btn'
+                                id = 'file-upload'
+                                onChange = { e => uploadImage(e.target.files) }
+                                type = 'file' />
+                        </Tooltip>
+                    </div>
+
+                    <div className = 'virtual-background-dialog'>
                         {storedImages.map((image, index) => (
                             <div
                                 className = { 'thumbnail-container' }
@@ -246,7 +250,7 @@ function VirtualBackground({ _selectedThumbnail, dispatch, t }: Props) {
                                     className = { 'delete-image-icon' }
                                     onClick = { () => deleteStoredImage(image) }
                                     size = { 15 }
-                                    src = { IconCloseSmall } />
+                                    src = { IconCancelSelection } />
                             </div>
                         ))}
                     </div>

@@ -13,7 +13,7 @@ import {
     IconYahoo
 } from '../../../../base/icons';
 import { Tooltip } from '../../../../base/tooltip';
-import { copyText } from '../../../../base/util';
+import { copyText, openURLInBrowser } from '../../../../base/util';
 
 type Props = {
 
@@ -50,6 +50,18 @@ function InviteByEmailSection({ inviteSubject, inviteText, t }: Props) {
      */
     function _onCopyText() {
         copyText(inviteText);
+    }
+
+    /**
+     * Opens an email provider containing the conference invite.
+     *
+     * @param {string} url - The url to be opened.
+     * @returns {Function}
+     */
+    function _onSelectProvider(url) {
+        return function() {
+            openURLInBrowser(url, true);
+        };
     }
 
     /**
@@ -100,13 +112,10 @@ function InviteByEmailSection({ inviteSubject, inviteText, t }: Props) {
                             content = { t(tooltipKey) }
                             key = { idx }
                             position = 'top'>
-                            <a
-                                className = 'provider-icon'
-                                href = { url }
-                                rel = 'noopener noreferrer'
-                                target = '_blank'>
+                            <div
+                                onClick = { _onSelectProvider(url) }>
                                 <Icon src = { icon } />
-                            </a>
+                            </div>
                         </Tooltip>
                     ))
                 }

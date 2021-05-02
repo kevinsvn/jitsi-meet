@@ -8,8 +8,6 @@ import {
 } from './actionTypes';
 import { WaitForOwnerDialog, LoginDialog } from './components';
 
-export * from './actions.any';
-
 /**
  * Cancels {@ink LoginDialog}.
  *
@@ -46,20 +44,24 @@ export function hideLoginDialog() {
 }
 
 /**
- * Shows a notification dialog that authentication is required to create the.
- * Conference.
- * This is used for external auth.
- *
- * @param {string} room - The room name.
- * @param {Function} onAuthNow - The function to be invoked when external authentication.
+ * Shows a authentication dialog where the local participant
+ * should authenticate.
  *
  * @returns {Function}.
  */
-export function openAuthDialog(room: String, onAuthNow: ?Function) {
-    return openDialog(WaitForOwnerDialog, {
-        room,
-        onAuthNow
-    });
+export function openLoginDialog() {
+    return openDialog(LoginDialog);
+}
+
+/**
+ * Shows a notification dialog that authentication is required to create the.
+ * Conference, so the local participant should authenticate or wait for a
+ * host.
+ *
+ * @returns {Function}.
+ */
+export function openWaitForOwnerDialog() {
+    return openDialog(WaitForOwnerDialog);
 }
 
 
